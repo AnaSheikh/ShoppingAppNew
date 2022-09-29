@@ -43,7 +43,7 @@
         android:id="@+id/detail_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:text="Item Category"
 
         android:textSize="18sp"
@@ -57,22 +57,24 @@
         android:id="@+id/detail_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:text="Item Description"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.477"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detail_category"
+        app:layout_constraintTop_toBottomOf="@+id/detail_price"
+        app:layout_constraintVertical_bias="0.132"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/detail_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:text="Item Price"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.423"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detail_description" />
+        app:layout_constraintTop_toBottomOf="@+id/detail_category" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

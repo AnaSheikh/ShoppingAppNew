@@ -1,6 +1,8 @@
 package com.example.shoppingappnew;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +33,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ItemAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.name.setText(itemList.get(position).getName());
         holder.category.setText(itemList.get(position).getCategory());
         holder.price.setText(itemList.get(position).getPrice());
@@ -39,12 +41,14 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String name = holder.name.getText().toString();
-                Model returnedModel = getModelBasedOnName(name);
-                holder.name.setText(returnedModel.getName());
-                holder.category.setText(returnedModel.getCategory());
-                holder.price.setText(returnedModel.getPrice());
-                holder.description.setText(returnedModel.getDescription());
+
+                Intent i = new Intent(context,ModelDetail.class);
+                i.putExtra("name",itemList.get(position).getName());
+                i.putExtra("category",itemList.get(position).getCategory());
+                i.putExtra("price",itemList.get(position).getPrice());
+                i.putExtra("description",itemList.get(position).getDescription());
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(i);
                 /*
                 Intent intent= new Intent(context,ModelDetail.class);
                 intent.putExtra("name",name);

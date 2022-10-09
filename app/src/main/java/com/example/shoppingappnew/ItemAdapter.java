@@ -3,6 +3,7 @@ package com.example.shoppingappnew;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,13 +25,14 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>imp
     Context context;
 
 
-    public ItemAdapter(ArrayList<Model> itemList) {
-        this.itemList = itemList;
-        itemListFull = new ArrayList<>(itemList);
+    public ItemAdapter(ArrayList<Model> itemListNew) {
+        this.itemList = itemListNew;
+        this.itemListFull = itemListNew;
     }
 
-    public ItemAdapter(ArrayList<Model> itemList, Context context) {
-        this.itemList = itemList;
+    public ItemAdapter(ArrayList<Model> itemListNew, Context context) {
+        this.itemList = itemListNew;
+        this.itemListFull = itemListNew;
         this.context = context;
     }
 
@@ -84,44 +86,45 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>imp
 
     @Override
     public int getItemCount() {
-        return itemList.size();
+       return itemList.size();
     }
+
 
     @Override
-    public Filter getFilter() {
+    public Filter getFilter(){
+        Filter exampleFilter = new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+              FilterResults filterResults = new FilterResults();
+              if(charSequence == null || charSequence.length()==0)
+              {
+                  filterResults.values = itemListFull;
+                  filterResults.count = itemListFull.size();
+              }
+              else {
+                  String searchString = charSequence.toString().toLowerCase(Locale.ROOT);
+                  List<Model> newData = new ArrayList<>();
+                  for(Model model: itemListFull)
+                  {
+                      if(model.getName().toLowerCase(Locale.ROOT).contains(searchString))
+                      {
+                          newData.add(model);
+                      }
+                  }
+                  filterResults.values = newData;
+                  filterResults.count = newData.size();
+              }
+              return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                itemList = (ArrayList<Model>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
         return exampleFilter;
     }
-    public Filter exampleFilter = new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence charSequence) {
-            List<Model> filteredList = new ArrayList<Model>();
-            if(charSequence == null || charSequence.length()==0)
-            {
-                filteredList.addAll(itemListFull);
-            }
-            else{
-                String filterPattern = charSequence.toString().toLowerCase(Locale.ROOT).trim();
-                for(Model temp: itemListFull)
-                {
-                    if(temp.getName().toLowerCase(Locale.ROOT).contains(filterPattern))
-                    {
-                        filteredList.add(temp);
-                    }
-                }
-            }
-            FilterResults filterResults = new FilterResults();
-            filterResults.values = filteredList;
-
-            return filterResults;
-        }
-
-        @Override
-        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            itemList.clear();
-            itemList.addAll((List) filterResults.values);
-            notifyDataSetChanged();
-        }
-    };
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView name,category,price,description;

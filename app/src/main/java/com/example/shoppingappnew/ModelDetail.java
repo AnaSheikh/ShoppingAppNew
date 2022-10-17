@@ -16,8 +16,10 @@ public class ModelDetail extends AppCompatActivity {
 
     ImageView img, back;
     TextView detail_name, detail_category, detail_price, detail_description;
+    ImageView detail_image;
 
     String name, category, price, description;
+    int image;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,17 +31,19 @@ public class ModelDetail extends AppCompatActivity {
         category = intent.getStringExtra("category");
         price = intent.getStringExtra("price");
         description = intent.getStringExtra("description");
-
+        image = intent.getExtras().getInt("image");
 
         detail_name = findViewById(R.id.detail_name);
         detail_category = findViewById(R.id.detail_category);
         detail_price = findViewById(R.id.detail_price);
         detail_description = findViewById(R.id.detail_description);
+        detail_image = findViewById(R.id.big_image);
 
         detail_name.setText(name);
         detail_category.setText(category);
         detail_price.setText(price);
         detail_description.setText(description);
+        detail_image.setImageResource(image);
 
 /*
         back.setOnClickListener(new View.OnClickListener() {

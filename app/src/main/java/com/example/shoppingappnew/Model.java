@@ -1,10 +1,21 @@
 package com.example.shoppingappnew;
 
+import java.net.URL;
+
 public class Model {
     String name;
     String category;
     String price;
     String description;
+    int image;
+
+    public Model(String name, String category, String price, String description, int image) {
+        this.name = name;
+        this.category = category;
+        this.price = price;
+        this.description = description;
+        this.image = image;
+    }
 
     public Model(String name, String category, String price, String description) {
         this.name = name;
@@ -16,6 +27,7 @@ public class Model {
     public Model() {
     }
 
+
     @Override
     public String toString() {
         return "Model{" +
@@ -23,6 +35,7 @@ public class Model {
                 ", category='" + category + '\'' +
                 ", price='" + price + '\'' +
                 ", description='" + description + '\'' +
+                ", image=" + image +
                 '}';
     }
 
@@ -62,5 +75,13 @@ public class Model {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public int getImage() {
+        return image;
+    }
+
+    public void setImage(int image) {
+        this.image = image;
     }
 }

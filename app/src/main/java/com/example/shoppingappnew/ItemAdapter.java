@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -50,6 +51,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>imp
         holder.category.setText(itemList.get(position).getCategory());
         holder.price.setText(itemList.get(position).getPrice());
         //holder.description.setText(itemList.get(position).getDescription());
+        holder.imageView.setImageResource(itemList.get(position).getImage());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,6 +61,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>imp
                 i.putExtra("category",itemList.get(position).getCategory());
                 i.putExtra("price",itemList.get(position).getPrice());
                 i.putExtra("description",itemList.get(position).getDescription());
+                i.putExtra("image",itemList.get(position).getImage());
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(i);
                 /*
@@ -128,6 +131,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>imp
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView name,category,price,description;
+        ImageView imageView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -135,6 +139,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>imp
             category = itemView.findViewById(R.id.category);
             price = itemView.findViewById(R.id.price);
             description= itemView.findViewById(R.id.detail_description);
+            imageView = itemView.findViewById(R.id.imageView);
 
         }
     }

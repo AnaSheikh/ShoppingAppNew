@@ -1,9 +1,13 @@
 package com.example.shoppingappnew;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     String [] description;
     int [] images;
     RecyclerView recyclerView;
+    ImageView cart_icon;
+    Button cart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerviewitemnew);
         DisplayItems();
+        cart = (Button) findViewById(R.id.add_cart);
 
 
     }
@@ -74,6 +81,15 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.main_menu,menu);
         MenuItem searchItem =   menu.findItem(R.id.search_action);
+        /*cart_icon =(ImageView)findViewById(R.id.cart_icon);
+        cart_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,CartActivity.class));
+            }
+        });
+
+         */
         SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

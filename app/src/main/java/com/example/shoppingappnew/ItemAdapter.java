@@ -7,6 +7,7 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -71,6 +72,19 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>imp
 
                  */
         }});
+        holder.cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(context,CartActivity.class);
+                i.putExtra("cname",itemList.get(position).getName());
+                i.putExtra("ccategory",itemList.get(position).getCategory());
+                i.putExtra("cprice",itemList.get(position).getPrice());
+                i.putExtra("cdescription",itemList.get(position).getDescription());
+                i.putExtra("cimage",itemList.get(position).getImage());
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(i);
+            }
+        });
 
         }
 
@@ -132,6 +146,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>imp
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView name,category,price,description;
         ImageView imageView;
+        Button cart;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -140,6 +155,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>imp
             price = itemView.findViewById(R.id.price);
             description= itemView.findViewById(R.id.detail_description);
             imageView = itemView.findViewById(R.id.imageView);
+            cart = itemView.findViewById(R.id.add_cart);
 
         }
     }

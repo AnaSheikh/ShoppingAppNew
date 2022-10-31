@@ -4,6 +4,8 @@
     package="com.example.shoppingappnew">
 
     <application
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:replace="android:theme"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -22,9 +24,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ModelDetail">
+        <activity android:name=".ModelDetail"
+            android:exported="true">
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".CartActivity"
+            android:exported="true">
+                <intent-filter>
+                    <action android:name = "android.intent.action.MAIN"> </action>
+                    <category android:name="android.intent.category.LAUNCHER">
+
+                    </category>
+
+                </intent-filter>
         </activity>
     </application>
 

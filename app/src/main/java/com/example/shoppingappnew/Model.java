@@ -1,7 +1,5 @@
 package com.example.shoppingappnew;
 
-import java.net.URL;
-
 public class Model {
     String name;
     String category;
@@ -24,9 +22,8 @@ public class Model {
         this.description = description;
     }
 
-    public Model() {
+    public Model(String name, String category, String price, String description, byte testImage) {
     }
-
 
     @Override
     public String toString() {

@@ -1,18 +1,16 @@
 package com.example.shoppingappnew;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.core.view.MenuItemCompat;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,7 +18,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    ArrayList<Model> itemList = new ArrayList<>();
+   // ArrayList<Model> itemList = new ArrayList<>(); for simle setup
+    ArrayList<Model> itemList;
     ItemAdapter adapter;
     String [] name;
     String [] category;
@@ -29,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     int [] images;
     RecyclerView recyclerView;
     ImageView cart_icon;
+    DBHelper DB ;
     Button cart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +36,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerviewitemnew);
+        DB = new DBHelper(this);
+
         DisplayItems();
         cart = (Button) findViewById(R.id.add_cart);
-
 
     }
     public void DisplayItems()
@@ -57,13 +58,16 @@ public class MainActivity extends AppCompatActivity {
         images = new int[]{R.drawable.dresshirt, R.drawable.cottonpent, R.drawable.jeanspent,R.drawable.shirt,R.drawable.trouser,R.drawable.coa,R.drawable.shoes,R.drawable.ring};
         for(int i = 0;i< name.length;i++)
         {
+            byte testImage = (byte) images[i];
             Model model = new Model(name[i],category[i],price[i],description[i],images[i]);
-            itemList.add(model);
+            //itemList.add(model);
+            DB.insertData(name[i],category[i],price[i],description[i]);
+
+
         }
-        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-        //recyclerView.setItemAnimator(new DefaultItemAnimator());
-        adapter = new ItemAdapter(itemList,getApplicationContext());
-        recyclerView.setAdapter(adapter);
+        displayItems();
+
+
     }
 
     @Override
@@ -105,5 +109,16 @@ public class MainActivity extends AppCompatActivity {
         });
 
         return super.onCreateOptionsMenu(menu);
+    }
+    public void displayItems()
+    {
+        itemList = new ArrayList<>(DB.readItems());
+        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+
+        adapter = new ItemAdapter(itemList,getApplicationContext());
+        recyclerView.setAdapter(adapter);
+
     }
 }

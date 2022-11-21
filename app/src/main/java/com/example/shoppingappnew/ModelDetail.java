@@ -47,15 +47,15 @@ public class ModelDetail extends AppCompatActivity {
         image = intent.getExtras().getInt("image");
 
         detail_name = findViewById(R.id.detail_name);
-        detail_category = findViewById(R.id.detail_category);
+        //detail_category = findViewById(R.id.detail_category);
         detail_price = findViewById(R.id.detail_price);
         detail_description = findViewById(R.id.detail_description);
         detail_image = findViewById(R.id.big_image);
-        cart = findViewById(R.id.add_to_cart);
+        //cart = findViewById(R.id.add_to_cart);
 
 
         detail_name.setText(name);
-        detail_category.setText(category);
+       // detail_category.setText(category);
         detail_price.setText(price);
         detail_description.setText(description);
         detail_image.setImageResource(image);
